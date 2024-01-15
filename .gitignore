@@ -21,4 +21,4 @@ Thumbs.db
 .DS_Store
 
 # Input files
-data/
+day*.txt
