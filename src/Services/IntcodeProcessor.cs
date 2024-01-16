@@ -1,3 +1,5 @@
+using IntcodeComputer.Exceptions;
+
 namespace IntcodeComputer.Services
 {
     public class IntcodeProcessor
@@ -46,7 +48,7 @@ namespace IntcodeComputer.Services
                     case 99:
                         { return; }
                     default:
-                        { throw new Exception($"Invalid opcode: {opcode}"); }
+                        { throw new InvalidOpcodeException(opcode); }
                 }
             }
         }
