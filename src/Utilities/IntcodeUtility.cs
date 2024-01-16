@@ -7,5 +7,10 @@ namespace IntcodeComputer.Utilities
             intcodeProgram[1] = noun;
             intcodeProgram[2] = verb;
         }
+
+        public static int[] CopyIntcodeProgram(int[] intcodeProgram)
+        {
+            return (int[])intcodeProgram.Clone();
+        }
     }
 }
