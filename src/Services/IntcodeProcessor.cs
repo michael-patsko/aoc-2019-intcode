@@ -4,46 +4,69 @@ namespace IntcodeComputer.Services
 {
     public class IntcodeProcessor
     {
-        public static void ProcessIntcode(int[] intcodeProgram)
+        private static int GetParameter(int[] intcodeProgram, int index, int mode)
         {
-            int opcode;
-            int instructionLength;
-
-            for (int i = 0; i < intcodeProgram.Length; i += instructionLength)
+            if (mode == 0)
             {
-                opcode = intcodeProgram[i];
+                return intcodeProgram[intcodeProgram[index]]; // Position mode
+            }
+            else if (mode == 1)
+            {
+                return intcodeProgram[index]; // Immediate mode
+            }
+            else
+            {
+                throw new InvalidOperationException($"Unsupported parameter mode: {mode}");
+            }
+        }
+        public static void ProcessIntcode(int[] intcodeProgram, int? programInput = null)
+        {
 
+            for (int i = 0; i < intcodeProgram.Length;)
+            {
+                int instruction = intcodeProgram[i];
+
+                int opcode = instruction % 100;
+                int mode1 = instruction / 100 % 10;
+                int mode2 = instruction / 1000 % 10;
+
+                int param1, param2;
                 switch (opcode)
                 {
                     case 1:
-                        {
-                            instructionLength = 4;
-
-                            int input1Index = intcodeProgram[i + 1];
-                            int input2Index = intcodeProgram[i + 2];
-                            int outputIndex = intcodeProgram[i + 3];
-
-                            int input1 = intcodeProgram[input1Index];
-                            int input2 = intcodeProgram[input2Index];
-                            int outputValue = input1 + input2;
-
-                            intcodeProgram[outputIndex] = outputValue;
-                            break;
-                        }
                     case 2:
                         {
-                            instructionLength = 4;
-
-                            int input1Index = intcodeProgram[i + 1];
-                            int input2Index = intcodeProgram[i + 2];
+                            param1 = GetParameter(intcodeProgram, i + 1, mode1);
+                            param2 = GetParameter(intcodeProgram, i + 2, mode2);
                             int outputIndex = intcodeProgram[i + 3];
 
-                            int input1 = intcodeProgram[input1Index];
-                            int input2 = intcodeProgram[input2Index];
-                            int outputValue = input1 * input2;
-
-                            intcodeProgram[outputIndex] = outputValue;
+                            if (opcode == 1)
+                            {
+                                intcodeProgram[outputIndex] = param1 + param2;
+                            }
+                            else if (opcode == 2)
+                            {
+                                intcodeProgram[outputIndex] = param1 * param2;
+                            }
+                            i += 4;
                             break;
+                        }
+                    case 3:
+                        {
+                            int parameterIndex = intcodeProgram[i + 1];
+                            intcodeProgram[parameterIndex] = programInput ?? throw new InvalidOperationException("Program input cannot be null.");
+
+                            i += 2;
+                            break;
+                        }
+                    case 4:
+                        {
+                            param1 = GetParameter(intcodeProgram, i + 1, mode1);
+                            Console.WriteLine($"Opcode 4 reached. Output: {param1}");
+
+                            i += 2;
+                            break;
+
                         }
                     case 99:
                         { return; }

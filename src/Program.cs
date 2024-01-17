@@ -5,5 +5,6 @@ class Program
     static void Main()
     {
         Day2.RunChallenge();
+        Day5.RunChallenge(1);
     }
 }
