@@ -68,6 +68,70 @@ namespace IntcodeComputer.Services
                             break;
 
                         }
+                    case 5:
+                        {
+                            param1 = GetParameter(intcodeProgram, i + 1, mode1);
+                            param2 = GetParameter(intcodeProgram, i + 2, mode2);
+                            if (param1 != 0)
+                            {
+                                i = param2;
+                            }
+                            else
+                            {
+                                i += 3;
+                            }
+                            break;
+                        }
+                    case 6:
+                        {
+                            param1 = GetParameter(intcodeProgram, i + 1, mode1);
+                            param2 = GetParameter(intcodeProgram, i + 2, mode2);
+                            if (param1 == 0)
+                            {
+                                i = param2;
+                            }
+                            else
+                            {
+                                i += 3;
+                            }
+                            break;
+                        }
+                    case 7:
+                        {
+                            param1 = GetParameter(intcodeProgram, i + 1, mode1);
+                            param2 = GetParameter(intcodeProgram, i + 2, mode2);
+                            int outputIndex = intcodeProgram[i + 3];
+
+                            if (param1 < param2)
+                            {
+                                intcodeProgram[outputIndex] = 1;
+                            }
+                            else
+                            {
+                                intcodeProgram[outputIndex] = 0;
+                            }
+
+                            i += 4;
+                            break;
+                        }
+                    case 8:
+                        {
+                            param1 = GetParameter(intcodeProgram, i + 1, mode1);
+                            param2 = GetParameter(intcodeProgram, i + 2, mode2);
+                            int outputIndex = intcodeProgram[i + 3];
+
+                            if (param1 == param2)
+                            {
+                                intcodeProgram[outputIndex] = 1;
+                            }
+                            else
+                            {
+                                intcodeProgram[outputIndex] = 0;
+                            }
+
+                            i += 4;
+                            break;
+                        }
                     case 99:
                         { return; }
                     default:
