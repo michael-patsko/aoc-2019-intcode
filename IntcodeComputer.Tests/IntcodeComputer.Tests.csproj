@@ -38,4 +38,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="data/Day5TestFile.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -5,13 +5,12 @@ namespace IntcodeComputer.Challenges
 {
     public class Day5
     {
-        public static int RunChallenge(int inputValue)
+        public static int RunChallenge(string filePath, int inputValue)
         {
             IntcodeFileReader fileReader = new();
 
             // --- Day 5 ---
-            string filepath = "../data/day5.txt";
-            int[] intcodeProgram = fileReader.ReadAndProcessIntcode(filepath);
+            int[] intcodeProgram = fileReader.ReadAndProcessIntcode(filePath);
             int[] programCopy;
 
             programCopy = IntcodeUtility.CopyIntcodeProgram(intcodeProgram); // Create a clone of the intcode program
