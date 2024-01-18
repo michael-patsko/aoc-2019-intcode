@@ -19,9 +19,10 @@ namespace IntcodeComputer.Services
                 throw new InvalidOperationException($"Unsupported parameter mode: {mode}");
             }
         }
-        public static int ProcessIntcode(int[] intcodeProgram, int? programInput = null)
+        public static int ProcessIntcode(int[] intcodeProgram, int[]? programInputs = null)
         {
             int outputValue = 0;
+            int inputIndex = 0;
 
             for (int i = 0; i < intcodeProgram.Length;)
             {
@@ -55,7 +56,14 @@ namespace IntcodeComputer.Services
                     case 3:
                         {
                             int parameterIndex = intcodeProgram[i + 1];
-                            intcodeProgram[parameterIndex] = programInput ?? throw new InvalidOperationException("Program input cannot be null.");
+
+                            if (programInputs == null)
+                            {
+                                throw new InvalidOperationException("Program input cannot be null.");
+                            }
+
+                            intcodeProgram[parameterIndex] = programInputs[inputIndex];
+                            inputIndex += 1;
 
                             i += 2;
                             break;

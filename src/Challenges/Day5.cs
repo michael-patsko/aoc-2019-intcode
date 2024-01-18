@@ -14,7 +14,7 @@ namespace IntcodeComputer.Challenges
             int[] programCopy;
 
             programCopy = IntcodeUtility.CopyIntcodeProgram(intcodeProgram); // Create a clone of the intcode program
-            int output = IntcodeProcessor.ProcessIntcode(programCopy, inputValue);
+            int output = IntcodeProcessor.ProcessIntcode(programCopy, [inputValue]);
 
             return output;
         }
