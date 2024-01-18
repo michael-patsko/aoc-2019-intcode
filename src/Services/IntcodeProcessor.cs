@@ -19,8 +19,9 @@ namespace IntcodeComputer.Services
                 throw new InvalidOperationException($"Unsupported parameter mode: {mode}");
             }
         }
-        public static void ProcessIntcode(int[] intcodeProgram, int? programInput = null)
+        public static int ProcessIntcode(int[] intcodeProgram, int? programInput = null)
         {
+            int outputValue = 0;
 
             for (int i = 0; i < intcodeProgram.Length;)
             {
@@ -62,8 +63,7 @@ namespace IntcodeComputer.Services
                     case 4:
                         {
                             param1 = GetParameter(intcodeProgram, i + 1, mode1);
-                            Console.WriteLine($"Opcode 4 reached. Output: {param1}");
-
+                            outputValue = param1;
                             i += 2;
                             break;
 
@@ -133,11 +133,12 @@ namespace IntcodeComputer.Services
                             break;
                         }
                     case 99:
-                        { return; }
+                        { return outputValue; }
                     default:
                         { throw new InvalidOpcodeException(opcode); }
                 }
             }
+            throw new Exception("Opcode 99 not reached.");
         }
     }
 }
